@@ -1,5 +1,6 @@
 resource "google_sql_database_instance" "master" {
     name                    = "hb-${var.env}-${var.name}-db"
+ #   master_instance_name    = "hb-${var.env}-${var.name}-mdb"
     database_version        = "${var.database_version}"
     region                  = "${var.zone}"
 
@@ -9,18 +10,46 @@ resource "google_sql_database_instance" "master" {
         tier                = "${var.tier}"
         disk_size           = "${var.disk_size}"
         disk_type           = "${var.disk_type}"
-    #    user_labels         = ["${var.labels}"]
+        user_labels         = {
+                env                     = "${var.env}"
+                name                    = "${var.name}"
+                app_name                = "${var.app_name}"
+                team                    = "${var.team}"
+                cost_type               = "${var.cost_type}"
+        }
+
+
 
     
 
     ip_configuration {
-        ipv4_enabled        = "true"
+        ipv4_enabled        = "false"
         require_ssl         = "${var.require_ssl}"
         private_network     = "${var.private_network}"
-    #    authorized_networks = ["${var.authorized_networks}"]
+   #     authorized_networks = ["${var.authorized_networks}"]
     }
+
+
+    backup_configuration {
+        binary_log_enabled = true
+        enabled            = true
+        start_time         = "02:30"
+    }
+
+    maintenance_window {
+        day                = 1         # Monday
+        hour               = 2         # 2AM
+        update_track       = "stable"
+    }
+  }
+
+
+#    replica_configuration {
+#        ca_certificate                  = "${var.certificate}"
+#    }
+
 }
-}
+
 
 #resource "google_compute_global_address" "private_ip_address" {
 #    name                    = "hb-${var.env}-${var.name}-ip"
