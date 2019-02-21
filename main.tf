@@ -23,10 +23,13 @@ resource "google_sql_database_instance" "master" {
     
 
     ip_configuration {
-        ipv4_enabled        = "false"
+        ipv4_enabled        = true
         require_ssl         = "${var.require_ssl}"
         private_network     = "${var.private_network}"
-   #     authorized_networks = ["${var.authorized_networks}"]
+        authorized_networks = [ 
+            {name            =  "${var.whitelisted_name}"
+            value           = "${var.whitelisted_ip}"}
+        ]
     }
 
 
@@ -42,6 +45,16 @@ resource "google_sql_database_instance" "master" {
         update_track       = "stable"
     }
   }
+}
+
+
+resource "google_sql_user" "sql_user" {
+
+    name        = "${var.sql_user_name}"
+    instance    = "${google_sql_database_instance.master.name}"
+    host        = "${var.sql_user_host}"
+    password    = "${var.sql_user_password}"
+
 
 
 #    replica_configuration {
@@ -51,10 +64,10 @@ resource "google_sql_database_instance" "master" {
 }
 
 
-#resource "google_compute_global_address" "private_ip_address" {
+#resource "google_compute_global_address" "public_ip_address" {
 #    name                    = "hb-${var.env}-${var.name}-ip"
-#    purpose                 = "${var.ip_purpose}"
+##    purpose                 = "${var.ip_purpose}"
 #    address_type            = "${var.address_type}"
-#    prefix_length           = "${var.prefix_length}"
-#    network                 = "${var.network}"
+##    prefix_length           = "${var.prefix_length}"
+##    network                 = "${var.network}"
 #}   
