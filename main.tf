@@ -44,7 +44,7 @@ resource "google_sql_database_instance" "master" {
         private_network     = "${var.private_network}"
     
 
-    #    authorized_networks = "${var.authorized_networks}"
+        authorized_networks = "${var.authorized_networks}"
 
     }
 
