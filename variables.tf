@@ -24,4 +24,4 @@ variable cost_type              {}
 
 variable whitelisted_name       {}
 variable whitelisted_ip         {}
-variable authorized_networks    {type="map"}
+variable authorized_networks    {type="list"}
