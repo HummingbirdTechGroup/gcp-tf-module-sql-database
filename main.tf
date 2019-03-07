@@ -1,15 +1,15 @@
 resource "google_sql_database_instance" "master" {
     name                    = "hb-${var.env}-${var.name}-db"
- #   master_instance_name    = "hb-${var.env}-${var.name}-mdb"
+   # master_instance_name    = "hb-${var.env}-${var.name}-mdb"
     database_version        = "${var.database_version}"
     region                  = "${var.zone}"
 
     settings {
     # Second-generation instance tiers are based on the machine
     # type. See argument reference below.
-        tier                = "${var.tier}"
-        disk_size           = "${var.disk_size}"
-        disk_type           = "${var.disk_type}"
+        tier                             = "${var.tier}"
+        disk_size                        = "${var.disk_size}"
+        disk_type                        = "${var.disk_type}"
         user_labels         = {
                 env                     = "${var.env}"
                 name                    = "${var.name}"
@@ -27,8 +27,10 @@ resource "google_sql_database_instance" "master" {
         require_ssl         = "${var.require_ssl}"
         private_network     = "${var.private_network}"
         authorized_networks = [ 
-            {name            =  "${var.whitelisted_name}"
-            value           = "${var.whitelisted_ip}"}
+            {
+                name            = "${var.whitelisted_name}"
+                value           = "${var.whitelisted_ip}"
+            }
         ]
     }
 
@@ -47,7 +49,7 @@ resource "google_sql_database_instance" "master" {
   }
 }
 
-
+#
 resource "google_sql_user" "sql_user" {
 
     name        = "${var.sql_user_name}"
