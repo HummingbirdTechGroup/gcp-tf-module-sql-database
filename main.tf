@@ -20,15 +20,16 @@ resource "google_sql_database_instance" "master" {
     }
 
     ip_configuration {
-      //   ipv4_enabled                      = "${var.public_ip}"
+      ipv4_enabled    = true
       require_ssl     = var.require_ssl
       private_network = "projects/hummingbird-technologies/global/networks/${var.private_network}"
-      //    authorized_networks = [ 
-      //        {
-      //            name            = "${var.whitelisted_name}"
-      //            value           = "${var.whitelisted_ip}"
-      //        }
-      //    ]
+
+        //  authorized_networks = [ 
+        //      {
+        //          name            = "${var.whitelisted_name}"
+        //          value           = "${var.whitelisted_ip}"
+        //      }
+        //  ]
     }
 
     backup_configuration {
@@ -63,5 +64,4 @@ resource "google_sql_user" "sql_user" {
 #    address_type            = "${var.address_type}"
 ##    prefix_length           = "${var.prefix_length}"
 ##    network                 = "${var.network}"
-#}   
-
+#}
