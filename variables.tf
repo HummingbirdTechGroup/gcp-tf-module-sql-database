@@ -22,6 +22,6 @@ variable cost_type              {}
 #variable sql_user_host          {}
 #variable sql_user_password      {}
 
-variable whitelisted_name       {type="list"}
-variable whitelisted_ip         {type="list"}
+variable whitelisted_name       {}
+variable whitelisted_ip         {}
 variable authorized_networks    {type="list"}
