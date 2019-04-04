@@ -51,11 +51,11 @@ resource "google_sql_database_instance" "master" {
 
 #
 resource "google_sql_user" "sql_user" {
-
-    name        = "${var.sql_user_name}"
+    count       = "${var.sql_user_count}"
+    name        = "${element(var.sql_user_name, count.index)}"
     instance    = "${google_sql_database_instance.master.name}"
-    host        = "${var.sql_user_host}"
-    password    = "${var.sql_user_password}"
+    host        = "${element(var.sql_user_host, count.index)}"
+    password    = "${element(var.sql_user_password, count.index)}"
 
 
 
