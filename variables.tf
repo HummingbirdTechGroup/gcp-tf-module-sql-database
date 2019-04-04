@@ -1,6 +1,6 @@
 variable env                    {}
 variable name                   {}
-variable region                 {}
+#variable region                 {}
 variable zone                   {}
 variable tier                   {}
 variable disk_size              {}
