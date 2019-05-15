@@ -12,8 +12,8 @@ variable database_version       {}
 variable app_name               {} 
 variable team                   {} 
 variable cost_type              {} 
-variable whitelisted_name       {}
-variable whitelisted_ip         {}
+#variable whitelisted_name       {}
+#variable whitelisted_ip         {}
 
 variable public_ip              {default = "false"}
 variable sql_user_count         {default = 1}
