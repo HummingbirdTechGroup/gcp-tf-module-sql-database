@@ -23,15 +23,15 @@ resource "google_sql_database_instance" "master" {
     
 
     ip_configuration {
-        ipv4_enabled        = true
+        ipv4_enabled        = "${var.public_ip}"
         require_ssl         = "${var.require_ssl}"
         private_network     = "${var.private_network}"
-        authorized_networks = [ 
-            {
-                name            = "${var.whitelisted_name}"
-                value           = "${var.whitelisted_ip}"
-            }
-        ]
+    //    authorized_networks = [ 
+    //        {
+    //            name            = "${var.whitelisted_name}"
+    //            value           = "${var.whitelisted_ip}"
+    //        }
+    //    ]
     }
 
 
@@ -51,11 +51,11 @@ resource "google_sql_database_instance" "master" {
 
 #
 resource "google_sql_user" "sql_user" {
-
-    name        = "${var.sql_user_name}"
+    count       = "${var.sql_user_count}"
+    name        = "${element(var.sql_user_name, count.index)}"
     instance    = "${google_sql_database_instance.master.name}"
-    host        = "${var.sql_user_host}"
-    password    = "${var.sql_user_password}"
+    host        = "${element(var.sql_user_host, count.index)}"
+    password    = "${element(var.sql_user_password, count.index)}"
 
 
 
