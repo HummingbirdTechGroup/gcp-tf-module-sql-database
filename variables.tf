@@ -20,4 +20,4 @@ variable sql_user_count         {default = 1}
 variable sql_user_name          {type = "list"}
 variable sql_user_host          {type = "list"}
 variable sql_user_password      {type = "list"}
-variable binary_log_enabled     {default - "true"}
+variable binary_log_enabled     {default = "true"}
