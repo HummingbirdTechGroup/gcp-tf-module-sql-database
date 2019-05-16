@@ -23,7 +23,7 @@ resource "google_sql_database_instance" "master" {
     
 
     ip_configuration {
-        ipv4_enabled        = "${var.public_ip}"
+     //   ipv4_enabled        = "${var.public_ip}"
         require_ssl         = "${var.require_ssl}"
         private_network     = "projects/hummingbird-technologies/global/networks/${var.private_network}"
     //    authorized_networks = [ 
