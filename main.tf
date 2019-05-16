@@ -62,7 +62,7 @@ resource "google_sql_user" "sql_user" {
 #    replica_configuration {
 #        ca_certificate                  = "${var.certificate}"
 #    }
-    depends_on "{google_sql_database_instance.master}"
+
 }
 
 
