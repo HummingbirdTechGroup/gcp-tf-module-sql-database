@@ -21,3 +21,4 @@ variable sql_user_name          {type = "list"}
 variable sql_user_host          {type = "list"}
 variable sql_user_password      {type = "list"}
 variable binary_log_enabled     {default = "true"}
+variable project                {default = "hummingbird-technologies"}
