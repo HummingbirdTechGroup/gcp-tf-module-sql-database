@@ -1,8 +1,8 @@
 resource "google_sql_database_instance" "master" {
-    name                    = "hb-${var.env}-${var.name}-db"
+    name                                = "hb-${var.env}-${var.name}-db"
    # master_instance_name    = "hb-${var.env}-${var.name}-mdb"
-    database_version        = "${var.database_version}"
-    region                  = "${var.zone}"
+    database_version                    = "${var.database_version}"
+    region                              = "${var.zone}"
 
     settings {
     # Second-generation instance tiers are based on the machine
@@ -23,20 +23,20 @@ resource "google_sql_database_instance" "master" {
     
 
     ip_configuration {
-        ipv4_enabled        = true
-        require_ssl         = "${var.require_ssl}"
-        private_network     = "${var.private_network}"
-        authorized_networks = [ 
-            {
-                name            = "${var.whitelisted_name}"
-                value           = "${var.whitelisted_ip}"
-            }
-        ]
+     //   ipv4_enabled                      = "${var.public_ip}"
+        require_ssl                         = "${var.require_ssl}"
+        private_network                     = "projects/${var.project}/global/networks/${var.private_network}"
+    //    authorized_networks = [ 
+    //        {
+    //            name            = "${var.whitelisted_name}"
+    //            value           = "${var.whitelisted_ip}"
+    //        }
+    //    ]
     }
 
 
     backup_configuration {
-        binary_log_enabled = true
+        binary_log_enabled = "${var.binary_log_enabled}"
         enabled            = true
         start_time         = "02:30"
     }
