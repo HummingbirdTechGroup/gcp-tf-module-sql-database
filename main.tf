@@ -65,9 +65,3 @@ resource "google_sql_user" "sql_user" {
 ##    network                 = "${var.network}"
 #}   
 
-provider "google" {
-  //  project = "hummingbird-technologies"
-  region  = "europe-west1"
-  version = "~> 2.8.0"
-}
-
