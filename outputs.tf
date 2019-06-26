@@ -10,12 +10,11 @@ output "connection_name" {
   value = "google_sql_database_instance.connection_name"
 }
 
-
 output "self_link" {
   value = "google_sql_database_instance.self_link"
 }
 
-
 output "certificate" {
   value = "google_sql_database_instance.server_ca_cert.0.cert"
 }
+
