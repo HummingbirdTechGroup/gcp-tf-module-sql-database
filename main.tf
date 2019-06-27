@@ -4,65 +4,65 @@
 #    value       = "${element(var.whitelisted_ip, count.index)}"    
 #}
 
-
 locals {
-
-        ip_names        = ["${var.whitelisted_name}"]
-        ip_addresses    = ["${var.whitelisted_ip}"]
-
+  ip_names     = [var.whitelisted_name]
+  ip_addresses = [var.whitelisted_ip]
 }
 
-
 resource "google_sql_database_instance" "master" {
-    name                    = "hb-${var.env}-${var.name}-db"
- #   master_instance_name    = "hb-${var.env}-${var.name}-mdb"
-    database_version        = "${var.database_version}"
-    region                  = "${var.zone}"
-        
-        
-  
+  name = "hb-${var.env}-${var.name}-db"
 
+  #   master_instance_name    = "hb-${var.env}-${var.name}-mdb"
+  database_version = var.database_version
+  region           = var.zone
 
-
-    settings {
+  settings {
     # Second-generation instance tiers are based on the machine
     # type. See argument reference below.
-        tier                = "${var.tier}"
-        disk_size           = "${var.disk_size}"
-        disk_type           = "${var.disk_type}"
-        user_labels         = {
-                env                     = "${var.env}"
-                name                    = "${var.name}"
-                app_name                = "${var.app_name}"
-                team                    = "${var.team}"
-                cost_type               = "${var.cost_type}"
-        } 
-
-    ip_configuration {
-        ipv4_enabled        = true
-        require_ssl         = "${var.require_ssl}"
-        private_network     = "${var.private_network}"
-    
-
-        authorized_networks = "${var.authorized_networks}"
-
+    tier      = var.tier
+    disk_size = var.disk_size
+    disk_type = var.disk_type
+    user_labels = {
+      env       = var.env
+      name      = var.name
+      app_name  = var.app_name
+      team      = var.team
+      cost_type = var.cost_type
     }
 
+    ip_configuration {
+      ipv4_enabled    = true
+      require_ssl     = var.require_ssl
+      private_network = var.private_network
+
+      dynamic "authorized_networks" {
+        for_each = var.authorized_networks
+        content {
+          # TF-UPGRADE-TODO: The automatic upgrade tool can't predict
+          # which keys might be set in maps assigned here, so it has
+          # produced a comprehensive set here. Consider simplifying
+          # this after confirming which keys can be set in practice.
+
+          expiration_time = lookup(authorized_networks.value, "expiration_time", null)
+          name            = lookup(authorized_networks.value, "name", null)
+          value           = lookup(authorized_networks.value, "value", null)
+        }
+      }
+    }
 
     backup_configuration {
-        binary_log_enabled = true
-        enabled            = true
-        start_time         = "02:30"
+      binary_log_enabled = true
+      enabled            = true
+      start_time         = "02:30"
     }
 
     maintenance_window {
-        day                = 1         # Monday
-        hour               = 2         # 2AM
-        update_track       = "stable"
+      day          = 1 # Monday
+      hour         = 2 # 2AM
+      update_track = "stable"
     }
   }
 }
-
 
 #resource "google_sql_user" "sql_user" {
 #
@@ -79,7 +79,6 @@ resource "google_sql_database_instance" "master" {
 
 #}
 
-
 #resource "google_compute_global_address" "public_ip_address" {
 #    name                    = "hb-${var.env}-${var.name}-ip"
 ##    purpose                 = "${var.ip_purpose}"
@@ -87,3 +86,4 @@ resource "google_sql_database_instance" "master" {
 ##    prefix_length           = "${var.prefix_length}"
 ##    network                 = "${var.network}"
 #}   
+
