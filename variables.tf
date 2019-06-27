@@ -53,11 +53,11 @@ variable "whitelisted_ip" {
 }
 
 variable "authorized_networks" {
-            description = "A list of whitelisted IP addresses."
-            type = "map" 
-            default = { 
-                name = "hb-staging"
-                value = "34.76.130.19/32" 
-        }    
-    }
+  description = "A list of whitelisted IP addresses."
+  type        = map(string)
+  default = {
+    name  = "hb-staging"
+    value = "34.76.130.19/32"
+  }
+}
 
