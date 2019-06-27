@@ -35,12 +35,12 @@ resource "google_sql_database_instance" "master" {
       require_ssl     = var.require_ssl
       private_network = var.private_network
 
-          authorized_networks = [ 
-              {
-                  name            = "${var.whitelisted_name}"
-                  value           = "${var.whitelisted_ip}"
-              }
-          ]
+        //  authorized_networks = [ 
+        //      {
+        //          name            = "${var.whitelisted_name}"
+        //          value           = "${var.whitelisted_ip}"
+        //      }
+        //  ]
     }
 
     backup_configuration {
