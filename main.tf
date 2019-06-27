@@ -35,19 +35,12 @@ resource "google_sql_database_instance" "master" {
       require_ssl     = var.require_ssl
       private_network = var.private_network
 
-      dynamic "authorized_networks" {
-        for_each = var.authorized_networks
-        content {
-          # TF-UPGRADE-TODO: The automatic upgrade tool can't predict
-          # which keys might be set in maps assigned here, so it has
-          # produced a comprehensive set here. Consider simplifying
-          # this after confirming which keys can be set in practice.
-
-          expiration_time = lookup(authorized_networks.value, "expiration_time", null)
-          name            = lookup(authorized_networks.value, "name", null)
-          value           = lookup(authorized_networks.value, "value", null)
-        }
-      }
+          authorized_networks = [ 
+              {
+                  name            = "${var.whitelisted_name}"
+                  value           = "${var.whitelisted_ip}"
+              }
+          ]
     }
 
     backup_configuration {
