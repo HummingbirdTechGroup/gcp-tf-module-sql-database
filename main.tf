@@ -24,12 +24,14 @@ resource "google_sql_database_instance" "master" {
       require_ssl     = var.require_ssl
       private_network = "projects/hummingbird-technologies/global/networks/${var.private_network}"
 
-        //  authorized_networks = [ 
-        //      {
-        //          name            = "${var.whitelisted_name}"
-        //          value           = "${var.whitelisted_ip}"
-        //      }
-        //  ]
+      # Add an authorized_networks block for each network
+      dynamic "authorized_networks" {
+        for_each = var.authorized_networks
+        content {
+          name  = authorized_networks.key
+          value = authorized_networks.value
+        }
+      }
     }
 
     backup_configuration {
@@ -46,7 +48,6 @@ resource "google_sql_database_instance" "master" {
   }
 }
 
-#
 resource "google_sql_user" "sql_user" {
   count    = var.sql_user_count
   name     = element(var.sql_user_name, count.index)

@@ -43,9 +43,6 @@ variable "team" {
 variable "cost_type" {
 }
 
-variable "cost_type" {
-}
-
 variable "sql_user_count" {
   default = 1
 }
@@ -73,15 +70,10 @@ variable "whitelisted_ip" {
 }
 
 variable "authorized_networks" {
-  description = "A list of whitelisted IP addresses."
+  description = "A map of key/value pairs in the form of Name = CIDR"
   type        = map(string)
   default = {
-    name  = "hb-staging"
-    value = "34.76.130.19/32"
+    "hb-staging" = "34.76.130.19/32"
   }
-}
-
-variable "project" {
-  default = "hummingbird-technologies"
 }
 
