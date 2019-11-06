@@ -44,19 +44,22 @@ variable "cost_type" {
 }
 
 variable "sql_user_count" {
-  default = 1
+  default = 0
 }
 
 variable "sql_user_name" {
   type = list(string)
+  default = []
 }
 
 variable "sql_user_host" {
   type = list(string)
+  default = []
 }
 
 variable "sql_user_password" {
   type = list(string)
+  default = []
 }
 
 variable "binary_log_enabled" {
@@ -76,4 +79,3 @@ variable "authorized_networks" {
     "hb-staging" = "34.76.130.19/32"
   }
 }
-
