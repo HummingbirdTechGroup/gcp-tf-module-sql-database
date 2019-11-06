@@ -1,7 +1,7 @@
 #data "null_resource" "ip_range" {
-#    count       = "${length(var.whitelisted_ip)}" 
-#    name        = "${element(var.whitelisted_name, count.index)}"    
-#    value       = "${element(var.whitelisted_ip, count.index)}"    
+#    count       = "${length(var.whitelisted_ip)}"
+#    name        = "${element(var.whitelisted_name, count.index)}"
+#    value       = "${element(var.whitelisted_ip, count.index)}"
 #}
 
 locals {
@@ -35,12 +35,14 @@ resource "google_sql_database_instance" "master" {
       require_ssl     = var.require_ssl
       private_network = var.private_network
 
-        //  authorized_networks = [ 
-        //      {
-        //          name            = "${var.whitelisted_name}"
-        //          value           = "${var.whitelisted_ip}"
-        //      }
-        //  ]
+      # Add an authorized_networks block for each network
+      dynamic "authorized_networks" {
+        for_each = var.authorized_networks
+        content {
+          name  = authorized_networks.key
+          value = authorized_networks.value
+        }
+      }
     }
 
     backup_configuration {
@@ -78,5 +80,4 @@ resource "google_sql_database_instance" "master" {
 #    address_type            = "${var.address_type}"
 ##    prefix_length           = "${var.prefix_length}"
 ##    network                 = "${var.network}"
-#}   
-
+#}
