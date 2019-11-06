@@ -66,12 +66,6 @@ variable "binary_log_enabled" {
   default = "true"
 }
 
-variable "whitelisted_name" {
-}
-
-variable "whitelisted_ip" {
-}
-
 variable "authorized_networks" {
   description = "A map of key/value pairs in the form of Name = CIDR"
   type        = map(string)
