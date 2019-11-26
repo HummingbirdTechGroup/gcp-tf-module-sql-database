@@ -68,8 +68,7 @@ variable "binary_log_enabled" {
 
 variable "authorized_networks" {
   description = "A map of key/value pairs in the form of Name = CIDR"
+# example:     "hb-staging" = "34.76.130.19/32"
   type        = map(string)
-  default = {
-    "hb-staging" = "34.76.130.19/32"
-  }
+  default = {}
 }
