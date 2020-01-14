@@ -23,6 +23,10 @@ variable "require_ssl" {
 variable "private_network" {
 }
 
+variable "enable_public_ip" {
+  default = true # for backwards compatibility only
+}
+
 #variable ip_purpose             {}
 variable "address_type" {
 }
