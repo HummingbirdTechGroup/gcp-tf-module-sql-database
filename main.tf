@@ -57,6 +57,9 @@ resource "google_sql_user" "sql_user" {
   #    replica_configuration {
   #        ca_certificate                  = "${var.certificate}"
   #    }
+  lifecycle {
+    ignore_changes = [host]
+  }
 }
 
 #resource "google_compute_global_address" "public_ip_address" {
