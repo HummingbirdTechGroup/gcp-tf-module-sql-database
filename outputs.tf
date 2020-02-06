@@ -6,6 +6,14 @@ output "ip_address" {
   value = google_sql_database_instance.master.ip_address.0.ip_address
 }
 
+output "private_ip_address" {
+  value = google_sql_database_instance.master.private_ip_address
+}
+
+output "public_ip_address" {
+  value = google_sql_database_instance.master.public_ip_address
+}
+
 output "connection_name" {
   value = google_sql_database_instance.master.connection_name
 }
