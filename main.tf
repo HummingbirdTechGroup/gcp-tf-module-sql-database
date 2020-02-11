@@ -46,6 +46,10 @@ resource "google_sql_database_instance" "master" {
       update_track = "stable"
     }
   }
+
+  provisioner "local-exec" {
+    command = "sleep 20"
+  }
 }
 
 resource "google_sql_user" "sql_user" {
@@ -59,6 +63,10 @@ resource "google_sql_user" "sql_user" {
   #    }
   lifecycle {
     ignore_changes = [host]
+  }
+
+  provisioner "local-exec" {
+    command = "sleep 20"
   }
 }
 
