@@ -34,6 +34,11 @@ variable "address_type" {
 variable "database_version" {
 }
 
+variable "database_flags" {
+  type        = map(string)
+  default = {}
+}
+
 #variable prefix_length          {}
 #variable network                {}
 #variable certificate            {}
