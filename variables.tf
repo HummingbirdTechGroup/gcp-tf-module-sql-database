@@ -81,3 +81,8 @@ variable "authorized_networks" {
   type        = map(string)
   default = {}
 }
+
+variable "wait_after_create" {
+  type = number
+  default = 1
+}

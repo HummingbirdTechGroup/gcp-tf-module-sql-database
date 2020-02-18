@@ -56,7 +56,7 @@ resource "google_sql_database_instance" "master" {
   }
 
   provisioner "local-exec" {
-    command = "sleep 20"
+    command = "sleep  ${var.wait_after_create}"
   }
 }
 
@@ -74,7 +74,7 @@ resource "google_sql_user" "sql_user" {
   }
 
   provisioner "local-exec" {
-    command = "sleep 20"
+    command = "sleep ${var.wait_after_create}"
   }
 }
 
