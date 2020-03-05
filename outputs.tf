@@ -1,3 +1,7 @@
+output "name" {
+  value = google_sql_database_instance.master.name
+}
+
 output "first_ip_address" {
   value = google_sql_database_instance.master.first_ip_address
 }
@@ -24,4 +28,8 @@ output "self_link" {
 
 output "certificate" {
   value = google_sql_database_instance.master.server_ca_cert.0.cert
+}
+
+output "service_account_email_address" {
+  value = google_sql_database_instance.master.service_account_email_address
 }
