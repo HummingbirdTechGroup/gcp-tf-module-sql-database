@@ -62,7 +62,7 @@ resource "google_sql_database_instance" "master" {
 }
 
 resource "google_sql_user" "sql_user" {
-  count    = var.sql_user_count
+  count    = length(var.sql_user_name)
   name     = element(var.sql_user_name, count.index)
   instance = google_sql_database_instance.master.name
   host     = element(var.sql_user_host, count.index)

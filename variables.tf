@@ -52,10 +52,6 @@ variable "team" {
 variable "cost_type" {
 }
 
-variable "sql_user_count" {
-  default = 0
-}
-
 variable "sql_user_name" {
   type = list(string)
   default = []
