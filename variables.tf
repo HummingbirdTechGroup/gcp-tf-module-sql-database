@@ -46,6 +46,11 @@ variable "database_flags" {
 variable "app_name" {
 }
 
+variable "labels" {
+  type = map
+  default = {}
+}
+
 variable "team" {
 }
 
