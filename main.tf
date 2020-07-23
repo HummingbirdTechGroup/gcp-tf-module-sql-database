@@ -13,6 +13,7 @@ resource "google_sql_database_instance" "master" {
     disk_autoresize = true
     disk_type = var.disk_type
     user_labels = local.labels
+    availability_type = var.availability_type
 
     dynamic "database_flags" {
       for_each = var.database_flags

@@ -39,6 +39,11 @@ variable "database_flags" {
   default = {}
 }
 
+variable "availability_type" {
+  description = "The availability type of the Cloud SQL instance, high availability (REGIONAL) or single zone (ZONAL)."
+  default = "ZONAL"
+}
+
 #variable prefix_length          {}
 #variable network                {}
 #variable certificate            {}
