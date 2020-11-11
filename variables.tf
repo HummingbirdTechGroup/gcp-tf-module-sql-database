@@ -92,3 +92,11 @@ variable "wait_after_create" {
   type = number
   default = 1
 }
+
+variable "backup_bucket" {
+
+}
+
+variable "import_bucket" {
+
+}
