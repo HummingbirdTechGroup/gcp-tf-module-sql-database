@@ -60,7 +60,7 @@ resource "google_sql_database_instance" "master" {
   }
 
   lifecycle {
-    ignore_changes = [name]
+    ignore_changes = [name, replication_type]
   }
 }
 
