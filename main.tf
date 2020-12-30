@@ -58,6 +58,10 @@ resource "google_sql_database_instance" "master" {
   provisioner "local-exec" {
     command = "sleep  ${var.wait_after_create}"
   }
+
+  lifecycle {
+    ignore_changes = [name]
+  }
 }
 
 resource "google_sql_user" "sql_user" {
