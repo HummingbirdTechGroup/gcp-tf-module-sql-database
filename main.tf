@@ -8,6 +8,7 @@ resource "google_sql_database_instance" "master" {
   # master_instance_name    = "hb-${var.env}-${var.name}-mdb"
   database_version = var.database_version
   region           = var.zone
+  deletion_protection = var.deletion_protection
 
   settings {
     # Second-generation instance tiers are based on the machine

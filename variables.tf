@@ -100,3 +100,8 @@ variable "backup_bucket" {
 variable "import_bucket" {
 
 }
+
+variable "deletion_protection" {
+  default = true
+  description = "If a DB instance should not be deleted by terraform, unless this flag changed manually"
+}
