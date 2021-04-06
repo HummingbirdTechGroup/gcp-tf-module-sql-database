@@ -33,3 +33,7 @@ output "certificate" {
 output "service_account_email_address" {
   value = google_sql_database_instance.master.service_account_email_address
 }
+
+output "database_password_list" {
+  value = random_password.password
+}
