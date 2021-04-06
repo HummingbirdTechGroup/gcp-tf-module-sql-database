@@ -72,11 +72,6 @@ variable "sql_user_host" {
   default = []
 }
 
-variable "sql_user_password" {
-  type = list(string)
-  default = []
-}
-
 variable "binary_log_enabled" {
   default = "true"
 }

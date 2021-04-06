@@ -65,12 +65,21 @@ resource "google_sql_database_instance" "master" {
   }
 }
 
+resource "random_password" "password" {
+  count            = length(var.sql_user_name)
+  length           = 16
+  special          = false
+  min_numeric      = 1
+  min_upper        = 1
+  min_lower        = 1
+}
+
 resource "google_sql_user" "sql_user" {
   count    = length(var.sql_user_name)
   name     = element(var.sql_user_name, count.index)
   instance = google_sql_database_instance.master.name
   host     = element(var.sql_user_host, count.index)
-  password = element(var.sql_user_password, count.index)
+  password = random_password.password[count.index].result
   #    replica_configuration {
   #        ca_certificate                  = "${var.certificate}"
   #    }
@@ -85,8 +94,8 @@ resource "google_sql_user" "sql_user" {
 
 #resource "google_compute_global_address" "public_ip_address" {
 #    name                    = "hb-${var.env}-${var.name}-ip"
-##    purpose                 = "${var.ip_purpose}"
+#    purpose                 = "${var.ip_purpose}"
 #    address_type            = "${var.address_type}"
-##    prefix_length           = "${var.prefix_length}"
-##    network                 = "${var.network}"
+#    prefix_length           = "${var.prefix_length}"
+#    network                 = "${var.network}"
 #}
