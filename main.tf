@@ -83,6 +83,14 @@ resource "google_sql_user" "sql_user" {
   }
 }
 
+resource "random_password" "password" {
+  length           = 16
+  special          = false
+  min_numeric      = 1
+  min_upper        = 1
+  min_lower        = 1
+}
+
 #resource "google_compute_global_address" "public_ip_address" {
 #    name                    = "hb-${var.env}-${var.name}-ip"
 ##    purpose                 = "${var.ip_purpose}"
