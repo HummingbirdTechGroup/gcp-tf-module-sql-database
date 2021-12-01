@@ -100,3 +100,9 @@ variable "deletion_protection" {
   default = true
   description = "If a DB instance should not be deleted by terraform, unless this flag changed manually"
 }
+
+variable "database_name" {
+  type = string
+  default = ""
+  description = "The name of the database to be created in the instance, if any"
+}

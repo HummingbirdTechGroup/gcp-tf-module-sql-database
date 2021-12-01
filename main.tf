@@ -92,6 +92,12 @@ resource "google_sql_user" "sql_user" {
   }
 }
 
+resource "google_sql_database" "database" {
+  count = length(var.database_name) > 0 ? 1 : 0
+  name     = var.database_name
+  instance = google_sql_database_instance.master.name
+}
+
 #resource "google_compute_global_address" "public_ip_address" {
 #    name                    = "hb-${var.env}-${var.name}-ip"
 #    purpose                 = "${var.ip_purpose}"
