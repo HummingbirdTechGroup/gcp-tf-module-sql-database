@@ -1,0 +1,51 @@
+version: 2.1
+
+
+orbs:
+  terraform: "circleci/terraform@3.0.0"
+
+
+jobs:
+  validate-configuration:
+    executor: terraform/default
+    steps:
+      - checkout
+      - terraform/fmt:
+          recursive: true
+      - terraform/validate
+
+  resolve-action-plan:
+    executor: terraform/default
+    steps:
+      - checkout
+      - terraform/plan
+
+  apply-configuration:
+    executor: terraform/default
+    steps:
+      - checkout
+      - terraform/apply
+
+
+workflows:
+  main:
+    jobs:
+      - validate-configuration
+      - resolve-action-plan:
+          requires:
+            - validate-configuration
+          filters:
+            branches:
+              only: main
+      - hold:
+          type: approval
+          requires:
+            - resolve-action-plan
+          filters:
+            branches:
+              only: main
+      - apply-configuration:
+          requires:
+            - hold
+          context:
+            - gcp-secrets
