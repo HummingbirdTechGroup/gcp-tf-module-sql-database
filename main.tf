@@ -6,18 +6,18 @@ resource "google_sql_database_instance" "master" {
   name = "hb-${var.env}-${var.name}-db-${random_id.db_name_suffix.hex}"
 
   # master_instance_name    = "hb-${var.env}-${var.name}-mdb"
-  database_version = var.database_version
-  region           = var.zone
+  database_version    = var.database_version
+  region              = var.zone
   deletion_protection = var.deletion_protection
 
   settings {
     # Second-generation instance tiers are based on the machine
     # type. See argument reference below.
-    tier      = var.tier
+    tier = var.tier
     # disk_size = var.disk_size
-    disk_autoresize = true
-    disk_type = var.disk_type
-    user_labels = local.labels
+    disk_autoresize   = true
+    disk_type         = var.disk_type
+    user_labels       = local.labels
     availability_type = var.availability_type
 
     dynamic "database_flags" {
@@ -66,12 +66,12 @@ resource "google_sql_database_instance" "master" {
 }
 
 resource "random_password" "password" {
-  count            = length(var.sql_user_name)
-  length           = 16
-  special          = false
-  min_numeric      = 1
-  min_upper        = 1
-  min_lower        = 1
+  count       = length(var.sql_user_name)
+  length      = 16
+  special     = false
+  min_numeric = 1
+  min_upper   = 1
+  min_lower   = 1
 }
 
 resource "google_sql_user" "sql_user" {
@@ -80,9 +80,7 @@ resource "google_sql_user" "sql_user" {
   instance = google_sql_database_instance.master.name
   host     = element(var.sql_user_host, count.index)
   password = random_password.password[count.index].result
-  #    replica_configuration {
-  #        ca_certificate                  = "${var.certificate}"
-  #    }
+
   lifecycle {
     ignore_changes = [host]
   }
@@ -93,15 +91,7 @@ resource "google_sql_user" "sql_user" {
 }
 
 resource "google_sql_database" "database" {
-  count = length(var.database_name) > 0 ? 1 : 0
+  count    = length(var.database_name) > 0 ? 1 : 0
   name     = var.database_name
   instance = google_sql_database_instance.master.name
 }
-
-#resource "google_compute_global_address" "public_ip_address" {
-#    name                    = "hb-${var.env}-${var.name}-ip"
-#    purpose                 = "${var.ip_purpose}"
-#    address_type            = "${var.address_type}"
-#    prefix_length           = "${var.prefix_length}"
-#    network                 = "${var.network}"
-#}
