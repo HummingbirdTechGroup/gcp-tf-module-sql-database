@@ -14,38 +14,8 @@ jobs:
           recursive: true
       - terraform/validate
 
-  resolve-action-plan:
-    executor: terraform/default
-    steps:
-      - checkout
-      - terraform/plan
-
-  apply-configuration:
-    executor: terraform/default
-    steps:
-      - checkout
-      - terraform/apply
-
 
 workflows:
   main:
     jobs:
       - validate-configuration
-      - resolve-action-plan:
-          requires:
-            - validate-configuration
-          filters:
-            branches:
-              only: main
-      - hold:
-          type: approval
-          requires:
-            - resolve-action-plan
-          filters:
-            branches:
-              only: main
-      - apply-configuration:
-          requires:
-            - hold
-          context:
-            - gcp-secrets
