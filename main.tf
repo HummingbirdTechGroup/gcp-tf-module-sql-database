@@ -5,7 +5,6 @@ resource "random_id" "db_name_suffix" {
 resource "google_sql_database_instance" "master" {
   name = "hb-${var.env}-${var.name}-db-${random_id.db_name_suffix.hex}"
 
-  # master_instance_name    = "hb-${var.env}-${var.name}-mdb"
   database_version    = var.database_version
   region              = var.zone
   deletion_protection = var.deletion_protection

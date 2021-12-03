@@ -39,7 +39,6 @@ project configuration:
     cost_type           = "static"
     require_ssl         = false
     private_network     = var.network.private_network
-    address_type        = "INTERNAL"
     database_version    = "POSTGRES_13"
     database_flags = {
       "max_connections" = var.cloudsql.max_connections
