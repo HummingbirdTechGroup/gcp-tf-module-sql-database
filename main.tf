@@ -13,8 +13,8 @@ resource "google_sql_database_instance" "master" {
   settings {
     # Second-generation instance tiers are based on the machine
     # type. See argument reference below.
-    tier = var.tier
-    # disk_size = var.disk_size
+    tier              = var.tier
+    disk_size         = var.disk_size
     disk_autoresize   = true
     disk_type         = var.disk_type
     user_labels       = local.labels
