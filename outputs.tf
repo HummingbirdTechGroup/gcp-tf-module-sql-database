@@ -43,5 +43,5 @@ output "database_users" {
 }
 
 output "database_name" {
-  value = google_sql_database.database[0].name
+  value = length(var.database_name) > 0 ? google_sql_database.database[0].name : ""
 }
