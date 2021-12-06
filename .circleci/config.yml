@@ -1,0 +1,21 @@
+version: 2.1
+
+
+orbs:
+  terraform: "circleci/terraform@3.0.0"
+
+
+jobs:
+  validate-configuration:
+    executor: terraform/default
+    steps:
+      - checkout
+      - terraform/fmt:
+          recursive: true
+      - terraform/validate
+
+
+workflows:
+  main:
+    jobs:
+      - validate-configuration
