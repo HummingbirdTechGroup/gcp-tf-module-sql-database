@@ -167,3 +167,27 @@ useful. To use pre-commit, simply follow this two steps:
 2. `pre-commit install`
 
 Now the pre-commit hooks will be triggered before you commit changes to Git.
+
+### Publish new version
+
+This project uses [tbump](https://github.com/dmerejkowsky/tbump) to automatically fulfill and
+publish a new version. When you are ready to create a new version, make sure you have `tbump`
+installed in your local machine:
+
+```shell
+pip install tbump
+```
+
+Then just stay in `main` branch, in sync with Git repository, and issue the new version. E.g. if you wish to create
+version **v1.2.3**:
+
+```shell
+tbump 1.2.3
+```
+
+And `tbump` will update the version in the project files where it is specified and also create a new Git tag `1.2.3`
+and push everything to repository with a commit named "_Bump to 1.2.3_".
+It'll also deploy that new version to Google Artifact Registry.
+
+In case you simply want to test, you can run `tbump 1.2.3 --dry-run` to see the changes that will be made, without
+actually doing anything.
