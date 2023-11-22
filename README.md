@@ -2,6 +2,8 @@
 
 Custom Terraform module to create GCP Cloud SQL instances and databases
 
+[![CircleCI](https://dl.circleci.com/status-badge/img/gh/Agreena-ApS/gcp-tf-module-sql-database/tree/master.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/Agreena-ApS/gcp-tf-module-sql-database/tree/master)
+
 ## Usage
 
 The list of input variables for this module can be seen in `variables.tf` file.
